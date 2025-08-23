@@ -23,13 +23,13 @@
 Существует множество способов внести свой вклад в TestDoc:
 
 ### 🐛 Сообщение об ошибках
-- Сообщайте о найденных багах через [GitHub Issues](https://github.com/seblex/testdoc/issues)
+- Сообщайте о найденных багах через [GitHub Issues](https://github.com/seblex5/testdoc/issues)
 - Убедитесь, что ошибка еще не была сообщена
 - Используйте шаблон для отчета об ошибке
 
 ### 💡 Предложение новых функций
-- Обсуждайте идеи в [GitHub Discussions](https://github.com/seblex/testdoc/discussions)
-- Создавайте feature requests через [GitHub Issues](https://github.com/seblex/testdoc/issues)
+- Обсуждайте идеи в [GitHub Discussions](https://github.com/seblex5/testdoc/discussions)
+- Создавайте feature requests через [GitHub Issues](https://github.com/seblex5/testdoc/issues)
 - Используйте шаблон для предложения функций
 
 ### 🔧 Код
@@ -483,7 +483,7 @@ func ExampleParseFile() {
 ## 🎉 Признание вклада
 
 Все участники признаются в:
-- [Contributors](https://github.com/seblex/testdoc/contributors)
+- [Contributors](https://github.com/seblex5/testdoc/contributors)
 - [CHANGELOG.md](CHANGELOG.md)
 - Релизных заметках
 
@@ -492,8 +492,8 @@ func ExampleParseFile() {
 Если у вас есть вопросы:
 
 1. 📖 Прочитайте [документацию](README.md)
-2. 🔍 Поищите в [существующих issues](https://github.com/seblex/testdoc/issues)
-3. 💬 Задайте вопрос в [Discussions](https://github.com/seblex/testdoc/discussions)
+2. 🔍 Поищите в [существующих issues](https://github.com/seblex5/testdoc/issues)
+3. 💬 Задайте вопрос в [Discussions](https://github.com/seblex5/testdoc/discussions)
 4. 📧 Напишите мейнтейнерам
 
 ## 🙏 Спасибо!

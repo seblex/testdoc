@@ -1,10 +1,13 @@
-.PHONY: build build-cli test test-race test-short test-cover lint fmt vet tidy clean install demo examples docs docker help
+.PHONY: build build-cli test test-race test-short test-cover lint fmt vet tidy clean install demo examples docs docker-check docker-build docker-run help
 
 # Переменные
 BINARY_NAME=testdoc
 CLI_PATH=./cmd/testdoc
 COVERAGE_FILE=coverage.out
-DOCKER_IMAGE=testdocorg/testdoc
+DOCKER_IMAGE=seblex5/testdoc
+
+# Docker команда (только docker, без sudo)
+DOCKER_CMD := docker
 
 # Сборка CLI приложения
 build:
@@ -115,13 +118,56 @@ examples: build
 # Docker сборка
 docker-build:
 	@echo "🐳 Сборка Docker образа..."
-	@docker build -t $(DOCKER_IMAGE):latest .
+	@echo "ℹ️  Используется: $(DOCKER_CMD)"
+	@if ! $(DOCKER_CMD) build -t $(DOCKER_IMAGE):latest . 2>/dev/null; then \
+		echo ""; \
+		echo "❌ Ошибка сборки Docker образа!"; \
+		echo ""; \
+		echo "💡 Возможные решения:"; \
+		echo "   1. Проверьте права доступа к Docker:"; \
+		echo "      sudo usermod -aG docker $$USER && newgrp docker"; \
+		echo ""; \
+		echo "   2. Используйте готовый образ:"; \
+		echo "      docker pull seblex5/testdoc:latest"; \
+		echo ""; \
+		echo "   3. Или используйте локальную сборку:"; \
+		echo "      make build && ./bin/$(BINARY_NAME) examples/_examples"; \
+		echo ""; \
+		exit 1; \
+	fi
 	@echo "✅ Docker образ собран: $(DOCKER_IMAGE):latest"
 
+# Проверка Docker
+docker-check:
+	@echo "🔍 Проверка Docker..."
+	@if ! command -v docker >/dev/null 2>&1; then \
+		echo "❌ Docker не установлен!"; \
+		echo "   Установите Docker: https://docs.docker.com/get-docker/"; \
+		exit 1; \
+	fi
+	@if ! docker version >/dev/null 2>&1; then \
+		echo "❌ Docker недоступен для текущего пользователя!"; \
+		echo ""; \
+		echo "📋 Для исправления выполните:"; \
+		echo "   sudo usermod -aG docker $$USER"; \
+		echo "   newgrp docker"; \
+		echo ""; \
+		echo "   Или перелогиньтесь в систему."; \
+		echo ""; \
+		echo "⚠️  Подробнее: https://docs.docker.com/engine/install/linux-postinstall/"; \
+		exit 1; \
+	fi
+	@if ! docker build --help >/dev/null 2>&1; then \
+		echo "❌ Команда 'docker build' недоступна!"; \
+		echo "   Проверьте установку Docker и права доступа."; \
+		exit 1; \
+	fi
+	@echo "✅ Docker готов к работе"
+
 # Docker запуск
-docker-run: docker-build
+docker-run: docker-check docker-build
 	@echo "🐳 Запуск в Docker..."
-	@docker run --rm -v $$(pwd):/workspace $(DOCKER_IMAGE):latest /workspace/examples/_examples
+	@$(DOCKER_CMD) run --rm -v $$(pwd):/workspace $(DOCKER_IMAGE):latest /workspace/examples/_examples
 
 # Подготовка к релизу
 release-prep: clean fmt vet lint test-cover
@@ -186,6 +232,7 @@ help:
 	@echo "  examples        - Запуск примеров"
 	@echo ""
 	@echo "🐳 Docker:"
+	@echo "  docker-check    - Проверка настройки Docker"
 	@echo "  docker-build    - Сборка Docker образа"
 	@echo "  docker-run      - Запуск в Docker"
 	@echo ""

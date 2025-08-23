@@ -75,10 +75,10 @@
 ### Как CLI инструмент
 ```bash
 # Установка
-go install github.com/seblex/testdoc/cmd/testdoc@latest
+go install github.com/seblex5/testdoc/cmd/testdoc@latest
 
 # Базовое использование
-testdoc ./tests
+testdoc ./examples/_examples
 
 # С фильтрацией
 testdoc -type unit -author "John Doe" -tags "api,critical" ./pkg
@@ -89,15 +89,15 @@ testdoc -config testdoc.yaml -output docs.md ./internal
 
 ### Как Go библиотека
 ```go
-import "github.com/seblex/testdoc"
+import "github.com/seblex5/testdoc"
 
 // Быстрый старт
-doc, err := testdoc.GenerateFromDirectory("./tests", nil)
+doc, err := testdoc.GenerateFromDirectory("./examples/_examples", nil)
 testdoc.WriteToFile(doc, "tests.md")
 
 // Продвинутое использование
 config := testdoc.DefaultConfig()
-result, _ := testdoc.ParseDirectory("./tests", config)
+result, _ := testdoc.ParseDirectory("./examples/_examples", config)
 filter := testdoc.NewFilter()
 unitTests := filter.ByType(result, types.UnitTest)
 markdown := testdoc.GenerateMarkdown(unitTests, config)
@@ -106,7 +106,7 @@ markdown := testdoc.GenerateMarkdown(unitTests, config)
 ### Docker
 ```bash
 docker run --rm -v $(pwd):/workspace \
-  testdocorg/testdoc:latest /workspace/tests
+  seblex5/testdoc:latest /workspace/examples/_examples
 ```
 
 ## 🎨 Пример аннотированного теста

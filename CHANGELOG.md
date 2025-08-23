@@ -49,7 +49,7 @@
 - `testdoc -author "John Doe"` - фильтрация по автору
 - `testdoc -tags "api,database"` - фильтрация по тегам
 - `testdoc -config config.yaml` - использование конфигурации
-- `testdoc -output docs.md ./tests` - настройка вывода
+- `testdoc -output docs.md ./examples/_examples` - настройка вывода
 - `testdoc -version` - информация о версии
 - `testdoc -help` - справка по использованию
 
@@ -75,7 +75,7 @@
 - Пользовательские аннотации `@key: value`
 
 ### Docker Support
-- `docker pull testdocorg/testdoc:latest` - официальный образ
+- `docker pull seblex5/testdoc:latest` - официальный образ
 - Multi-architecture support (linux/amd64, linux/arm64)
 - Минимальный размер образа на базе Alpine Linux
 - Безопасность: non-root пользователь
@@ -148,6 +148,6 @@
 
 ## Ссылки
 
-- [Releases](https://github.com/seblex/testdoc/releases) - все релизы проекта
-- [Issues](https://github.com/seblex/testdoc/issues) - отслеживание багов и предложений
-- [Pull Requests](https://github.com/seblex/testdoc/pulls) - предлагаемые изменения
+- [Releases](https://github.com/seblex5/testdoc/releases) - все релизы проекта
+- [Issues](https://github.com/seblex5/testdoc/issues) - отслеживание багов и предложений
+- [Pull Requests](https://github.com/seblex5/testdoc/pulls) - предлагаемые изменения

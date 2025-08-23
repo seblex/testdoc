@@ -90,7 +90,7 @@ Configuration  Markdown
 
 ## 📦 Пакеты
 
-### `github.com/seblex/testdoc`
+### `github.com/seblex5/testdoc`
 
 **Назначение**: Основной пакет с публичным API
 
@@ -102,7 +102,7 @@ Configuration  Markdown
 - `WriteToFile()/AppendToFile()` - сохранение файлов
 - `NewFilter()/NewStatistics()` - утилиты
 
-### `github.com/seblex/testdoc/pkg/types`
+### `github.com/seblex5/testdoc/pkg/types`
 
 **Назначение**: Типы данных и структуры
 
@@ -114,7 +114,7 @@ Configuration  Markdown
 - `Config` - конфигурация генерации
 - `ParseResult` - результат парсинга
 
-### `github.com/seblex/testdoc/pkg/parser`
+### `github.com/seblex5/testdoc/pkg/parser`
 
 **Назначение**: Анализ Go тест-файлов
 
@@ -124,7 +124,7 @@ Configuration  Markdown
 - Анализ пропущенных тестов (`t.Skip()`)
 - Обход директорий с фильтрацией
 
-### `github.com/seblex/testdoc/pkg/generator`
+### `github.com/seblex5/testdoc/pkg/generator`
 
 **Назначение**: Генерация Markdown документации
 
@@ -176,16 +176,16 @@ Configuration  Markdown
 
 ```bash
 # Go install
-go install github.com/seblex/testdoc/cmd/testdoc@latest
+go install github.com/seblex5/testdoc/cmd/testdoc@latest
 
 # Homebrew
 brew install testdoc
 
 # Docker
-docker pull testdocorg/testdoc:latest
+docker pull seblex5/testdoc:latest
 
 # Binary download
-curl -L https://github.com/seblex/testdoc/releases/latest/download/testdoc-linux-amd64.tar.gz | tar xz
+curl -L https://github.com/seblex5/testdoc/releases/latest/download/testdoc-linux-amd64.tar.gz | tar xz
 ```
 
 ## 🔧 Расширение

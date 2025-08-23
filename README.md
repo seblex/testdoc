@@ -1,10 +1,10 @@
 # TestDoc 📚
 
-[![CI](https://github.com/seblex/testdoc/workflows/CI/badge.svg)](https://github.com/seblex/testdoc/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/seblex/testdoc)](https://goreportcard.com/report/github.com/seblex/testdoc)
+[![CI](https://github.com/seblex5/testdoc/workflows/CI/badge.svg)](https://github.com/seblex5/testdoc/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/seblex5/testdoc)](https://goreportcard.com/report/github.com/seblex5/testdoc)
 [![codecov](https://codecov.io/gh/testdoc-org/testdoc/branch/main/graph/badge.svg)](https://codecov.io/gh/testdoc-org/testdoc)
-[![Go Reference](https://pkg.go.dev/badge/github.com/seblex/testdoc.svg)](https://pkg.go.dev/github.com/seblex/testdoc)
-[![Release](https://img.shields.io/github/release/testdoc-org/testdoc.svg)](https://github.com/seblex/testdoc/releases/latest)
+[![Go Reference](https://pkg.go.dev/badge/github.com/seblex5/testdoc.svg)](https://pkg.go.dev/github.com/seblex5/testdoc)
+[![Release](https://img.shields.io/github/release/testdoc-org/testdoc.svg)](https://github.com/seblex5/testdoc/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Автоматический генератор документации для Go тестов** 🚀
@@ -28,15 +28,15 @@ TestDoc анализирует ваши Go тест-файлы и создает
 
 #### Через Go Install
 ```bash
-go install github.com/seblex/testdoc/cmd/testdoc@latest
+go install github.com/seblex5/testdoc/cmd/testdoc@latest
 ```
 
 #### Скачать бинарный файл
-Скачайте последнюю версию с [страницы релизов](https://github.com/seblex/testdoc/releases).
+Скачайте последнюю версию с [страницы релизов](https://github.com/seblex5/testdoc/releases).
 
 #### Docker
 ```bash
-docker pull testdocorg/testdoc:latest
+docker pull seblex5/testdoc:latest
 ```
 
 #### Homebrew (macOS/Linux)
@@ -52,7 +52,7 @@ brew install testdoc
 testdoc
 
 # Анализ конкретной директории
-testdoc ./tests
+testdoc ./examples/_examples
 
 # С настройками
 testdoc -config config.yaml -output docs.md ./internal
@@ -67,7 +67,7 @@ package main
 
 import (
     "log"
-    "github.com/seblex/testdoc"
+    "github.com/seblex5/testdoc"
 )
 
 func main() {
@@ -77,7 +77,7 @@ func main() {
     config.Author = "Команда разработки"
 
     // Генерация документации
-    doc, err := testdoc.GenerateFromDirectory("./tests", config)
+    doc, err := testdoc.GenerateFromDirectory("./examples/_examples", config)
     if err != nil {
         log.Fatal(err)
     }
@@ -93,13 +93,13 @@ func main() {
 #### Docker
 ```bash
 # Генерация документации
-docker run --rm -v $(pwd):/workspace testdocorg/testdoc /workspace/tests
+docker run --rm -v $(pwd):/workspace seblex5/testdoc /workspace/examples/_examples
 
 # С настройками
-docker run --rm -v $(pwd):/workspace testdocorg/testdoc \
+docker run --rm -v $(pwd):/workspace seblex5/testdoc \
   -config /workspace/config.yaml \
   -output /workspace/docs.md \
-  /workspace/tests
+  /workspace/examples/_examples
 ```
 
 ## 📝 Система аннотаций
@@ -241,7 +241,7 @@ jobs:
     - name: Generate test documentation
       uses: testdoc-org/testdoc-action@v1
       with:
-        path: './tests'
+        path: './examples/_examples'
         output: 'docs/test-documentation.md'
         config: 'testdoc.yaml'
     
@@ -259,12 +259,12 @@ jobs:
 ```makefile
 .PHONY: test-docs
 test-docs:
-	testdoc -config testdoc.yaml -output docs/tests.md ./internal
+	testdoc -config testdoc.yaml -output doc./examples/_examples.md ./internal
 
 .PHONY: test-docs-check
 test-docs-check:
 	testdoc -config testdoc.yaml -output /tmp/test-docs.md ./internal
-	diff docs/tests.md /tmp/test-docs.md || \
+	diff doc./examples/_examples.md /tmp/test-docs.md || \
 		(echo "❌ Документация не актуальна! Запустите 'make test-docs'" && exit 1)
 ```
 
@@ -274,7 +274,7 @@ test-docs-check:
 
 ```go
 // Парсинг и генерация
-result, err := testdoc.ParseDirectory("./tests", config)
+result, err := testdoc.ParseDirectory("./examples/_examples", config)
 markdown := testdoc.GenerateMarkdown(result, config)
 
 // Работа с конфигурацией
@@ -311,7 +311,7 @@ mostCommon, count := stats.GetMostCommonTestType(result)
 ### Сборка из исходников
 
 ```bash
-git clone https://github.com/seblex/testdoc.git
+git clone https://github.com/seblex5/testdoc.git
 cd testdoc
 go build -o testdoc ./cmd/testdoc
 ```
@@ -352,15 +352,15 @@ golangci-lint run
 
 ### Как помочь
 
-- 🐛 **Сообщайте о багах** через [Issues](https://github.com/seblex/testdoc/issues)
-- 💡 **Предлагайте новые возможности** через [Discussions](https://github.com/seblex/testdoc/discussions)
+- 🐛 **Сообщайте о багах** через [Issues](https://github.com/seblex5/testdoc/issues)
+- 💡 **Предлагайте новые возможности** через [Discussions](https://github.com/seblex5/testdoc/discussions)
 - 🔧 **Отправляйте Pull Requests**
 - 📖 **Улучшайте документацию**
 - ⭐ **Ставьте звезды** проекту
 
 ### Благодарности
 
-Спасибо всем [участникам](https://github.com/seblex/testdoc/contributors) проекта!
+Спасибо всем [участникам](https://github.com/seblex5/testdoc/contributors) проекта!
 
 ## 📜 Лицензия
 
@@ -370,10 +370,10 @@ golangci-lint run
 
 - 📚 [Документация](https://testdoc-org.github.io/testdoc/)
 - 🎯 [Примеры использования](examples/)
-- 🐛 [Сообщить об ошибке](https://github.com/seblex/testdoc/issues/new/choose)
-- 💬 [Обсуждения](https://github.com/seblex/testdoc/discussions)
-- 📦 [Релизы](https://github.com/seblex/testdoc/releases)
-- 🐳 [Docker Hub](https://hub.docker.com/r/testdocorg/testdoc)
+- 🐛 [Сообщить об ошибке](https://github.com/seblex5/testdoc/issues/new/choose)
+- 💬 [Обсуждения](https://github.com/seblex5/testdoc/discussions)
+- 📦 [Релизы](https://github.com/seblex5/testdoc/releases)
+- 🐳 [Docker Hub](https://hub.docker.com/r/seblex5/testdoc)
 
 ---
 
@@ -381,6 +381,6 @@ golangci-lint run
 
 **Сделано с ❤️ командой TestDoc**
 
-[⭐ Поставьте звезду на GitHub!](https://github.com/seblex/testdoc) • [🐦 Следите в Twitter](https://twitter.com/testdocorg)
+[⭐ Поставьте звезду на GitHub!](https://github.com/seblex5/testdoc) • [🐦 Следите в Twitter](https://twitter.com/testdocorg)
 
 </div>

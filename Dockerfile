@@ -42,11 +42,8 @@ COPY --from=builder /app/testdoc /usr/local/bin/testdoc
 # Copy timezone data
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 
-# Change ownership of the workspace
-RUN chown -R testdoc:testdoc /workspace
-
-# Switch to non-root user
-USER testdoc
+# Keep root user for volume access
+# USER testdoc
 
 # Set default entrypoint
 ENTRYPOINT ["testdoc"]
