@@ -1,0 +1,150 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+      release_version: ${{ steps.get_version.outputs.VERSION }}
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Get version
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        draft: false
+        prerelease: false
+        body: |
+          ## Changes
+          
+          - См. CHANGELOG.md для полного списка изменений
+          
+          ## Installation
+          
+          ### Binary Download
+          Скачайте бинарный файл для вашей ОС из Assets ниже.
+          
+          ### Go Install
+          ```bash
+          go install github.com/testdoc-org/testdoc/cmd/testdoc@${{ steps.get_version.outputs.VERSION }}
+          ```
+          
+          ### Library Usage
+          ```bash
+          go get github.com/testdoc-org/testdoc@${{ steps.get_version.outputs.VERSION }}
+          ```
+
+  build-and-upload:
+    name: Build and Upload
+    runs-on: ubuntu-latest
+    needs: create-release
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin]
+        goarch: [amd64, arm64]
+        exclude:
+          - goos: windows
+            goarch: arm64
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: 1.21.x
+
+    - name: Build binary
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
+      run: |
+        if [ "$GOOS" = "windows" ]; then
+          BINARY_NAME="testdoc.exe"
+        else
+          BINARY_NAME="testdoc"
+        fi
+        
+        go build -ldflags "-X main.version=${{ needs.create-release.outputs.release_version }}" \
+          -o $BINARY_NAME ./cmd/testdoc
+        
+        if [ "$GOOS" = "windows" ]; then
+          ARCHIVE_NAME="testdoc-${{ needs.create-release.outputs.release_version }}-${{ matrix.goos }}-${{ matrix.goarch }}.zip"
+          zip $ARCHIVE_NAME $BINARY_NAME
+        else
+          ARCHIVE_NAME="testdoc-${{ needs.create-release.outputs.release_version }}-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz"
+          tar -czf $ARCHIVE_NAME $BINARY_NAME
+        fi
+        
+        echo "ARCHIVE_NAME=$ARCHIVE_NAME" >> $GITHUB_ENV
+        echo "BINARY_NAME=$BINARY_NAME" >> $GITHUB_ENV
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create-release.outputs.upload_url }}
+        asset_path: ./${{ env.ARCHIVE_NAME }}
+        asset_name: ${{ env.ARCHIVE_NAME }}
+        asset_content_type: application/octet-stream
+
+  publish-docker:
+    name: Publish Docker Image
+    runs-on: ubuntu-latest
+    needs: create-release
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: |
+          testdocorg/testdoc:latest
+          testdocorg/testdoc:${{ needs.create-release.outputs.release_version }}
+        build-args: |
+          VERSION=${{ needs.create-release.outputs.release_version }}
+
+  update-homebrew:
+    name: Update Homebrew Formula
+    runs-on: ubuntu-latest
+    needs: [create-release, build-and-upload]
+    if: ${{ !contains(needs.create-release.outputs.release_version, '-') }}
+    steps:
+    - name: Update Homebrew formula
+      uses: dawidd6/action-homebrew-bump-formula@v3
+      with:
+        token: ${{ secrets.HOMEBREW_TOKEN }}
+        formula: testdoc
+        tag: ${{ needs.create-release.outputs.release_version }}
+        revision: ${{ github.sha }}

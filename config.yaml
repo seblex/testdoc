@@ -1,0 +1,20 @@
+title: "Документация тестов проекта"
+author: "Команда разработки"
+version: "1.0.0"
+include_skipped: true
+group_by_type: true
+group_by_package: false
+
+# Паттерны файлов для включения в документацию
+include_patterns:
+  - "*_test.go"
+
+# Паттерны файлов для исключения из документации
+exclude_patterns:
+  - "*_bench_test.go"
+  - "*_integration_test.go"
+
+# Пользовательские шаблоны (опционально)
+custom_templates:
+  test_header: "### Тест: {name}"
+  test_description: "**Описание:** {description}"
