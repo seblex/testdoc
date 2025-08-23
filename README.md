@@ -39,11 +39,6 @@ go install github.com/seblex5/testdoc/cmd/testdoc@latest
 docker pull seblex5/testdoc:latest
 ```
 
-#### Homebrew (macOS/Linux)
-```bash
-brew install testdoc
-```
-
 ### Использование
 
 #### CLI
@@ -338,9 +333,7 @@ golangci-lint run
 
 ## 📈 Roadmap
 
-- [ ] **Поддержка других языков** (Python, JavaScript/TypeScript, Java)
 - [ ] **Веб-интерфейс** для просмотра документации
-- [ ] **Интеграция с IDE** (VS Code расширение)
 - [ ] **Экспорт в другие форматы** (HTML, PDF, Confluence)
 - [ ] **Анализ покрытия** интеграция
 - [ ] **Шаблоны документации** для разных команд/проектов
@@ -381,6 +374,6 @@ golangci-lint run
 
 **Сделано с ❤️ командой TestDoc**
 
-[⭐ Поставьте звезду на GitHub!](https://github.com/seblex5/testdoc) • [🐦 Следите в Twitter](https://twitter.com/testdocorg)
+[⭐ Поставьте звезду на GitHub!](https://github.com/seblex5/testdoc)
 
 </div>
