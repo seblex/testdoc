@@ -7,7 +7,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/testdoc-org/testdoc/pkg/types"
+	"github.com/seblex/testdoc/pkg/types"
 )
 
 func TestGenerator_New(t *testing.T) {

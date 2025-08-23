@@ -9,7 +9,7 @@
 //
 // Пример использования:
 //
-//	import "github.com/testdoc-org/testdoc"
+//	import "github.com/seblex/testdoc"
 //
 //	// Создание конфигурации
 //	config := testdoc.DefaultConfig()
@@ -35,9 +35,9 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/testdoc-org/testdoc/pkg/generator"
-	"github.com/testdoc-org/testdoc/pkg/parser"
-	"github.com/testdoc-org/testdoc/pkg/types"
+	"github.com/seblex/testdoc/pkg/generator"
+	"github.com/seblex/testdoc/pkg/parser"
+	"github.com/seblex/testdoc/pkg/types"
 )
 
 // DefaultConfig возвращает конфигурацию по умолчанию для генерации документации

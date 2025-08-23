@@ -148,6 +148,6 @@
 
 ## Ссылки
 
-- [Releases](https://github.com/testdoc-org/testdoc/releases) - все релизы проекта
-- [Issues](https://github.com/testdoc-org/testdoc/issues) - отслеживание багов и предложений
-- [Pull Requests](https://github.com/testdoc-org/testdoc/pulls) - предлагаемые изменения
+- [Releases](https://github.com/seblex/testdoc/releases) - все релизы проекта
+- [Issues](https://github.com/seblex/testdoc/issues) - отслеживание багов и предложений
+- [Pull Requests](https://github.com/seblex/testdoc/pulls) - предлагаемые изменения

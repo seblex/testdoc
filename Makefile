@@ -28,7 +28,7 @@ install:
 # Запуск всех тестов
 test:
 	@echo "🧪 Запуск всех тестов..."
-	@go test ./...
+	@go test ./pkg/... ./ 
 
 # Запуск тестов с race detector
 test-race:
@@ -107,9 +107,9 @@ docs: build
 # Запуск примеров
 examples: build
 	@echo "🔧 Запуск примеров использования..."
-	@cd examples/basic && go run main.go
+	@cd cmd/examples/basic && go run main.go
 	@echo ""
-	@cd examples/advanced && go run main.go
+	@cd cmd/examples/advanced && go run main.go
 	@echo "✅ Примеры выполнены"
 
 # Docker сборка

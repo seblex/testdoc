@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/testdoc-org/testdoc/pkg/types"
+	"github.com/seblex/testdoc/pkg/types"
 )
 
 // Generator генерирует документацию для тестов

@@ -1,4 +1,4 @@
-module github.com/testdoc-org/testdoc
+module github.com/seblex/testdoc
 
 go 1.21
 

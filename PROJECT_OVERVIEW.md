@@ -75,7 +75,7 @@
 ### Как CLI инструмент
 ```bash
 # Установка
-go install github.com/testdoc-org/testdoc/cmd/testdoc@latest
+go install github.com/seblex/testdoc/cmd/testdoc@latest
 
 # Базовое использование
 testdoc ./tests
@@ -89,7 +89,7 @@ testdoc -config testdoc.yaml -output docs.md ./internal
 
 ### Как Go библиотека
 ```go
-import "github.com/testdoc-org/testdoc"
+import "github.com/seblex/testdoc"
 
 // Быстрый старт
 doc, err := testdoc.GenerateFromDirectory("./tests", nil)

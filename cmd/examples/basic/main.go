@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/testdoc-org/testdoc"
+	"github.com/seblex/testdoc"
 )
 
 func main() {

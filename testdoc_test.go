@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/testdoc-org/testdoc/pkg/types"
+	"github.com/seblex/testdoc/pkg/types"
 )
 
 func TestDefaultConfig(t *testing.T) {

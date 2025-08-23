@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/testdoc-org/testdoc/pkg/types"
+	"github.com/seblex/testdoc/pkg/types"
 )
 
 // Parser анализирует Go файлы с тестами

@@ -6,8 +6,8 @@ import (
 	"log"
 	"strings"
 
-	"github.com/testdoc-org/testdoc"
-	"github.com/testdoc-org/testdoc/pkg/types"
+	"github.com/seblex/testdoc"
+	"github.com/seblex/testdoc/pkg/types"
 )
 
 func main() {

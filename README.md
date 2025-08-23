@@ -1,10 +1,10 @@
 # TestDoc 📚
 
-[![CI](https://github.com/testdoc-org/testdoc/workflows/CI/badge.svg)](https://github.com/testdoc-org/testdoc/actions)
-[![Go Report Card](https://goreportcard.com/badge/github.com/testdoc-org/testdoc)](https://goreportcard.com/report/github.com/testdoc-org/testdoc)
+[![CI](https://github.com/seblex/testdoc/workflows/CI/badge.svg)](https://github.com/seblex/testdoc/actions)
+[![Go Report Card](https://goreportcard.com/badge/github.com/seblex/testdoc)](https://goreportcard.com/report/github.com/seblex/testdoc)
 [![codecov](https://codecov.io/gh/testdoc-org/testdoc/branch/main/graph/badge.svg)](https://codecov.io/gh/testdoc-org/testdoc)
-[![Go Reference](https://pkg.go.dev/badge/github.com/testdoc-org/testdoc.svg)](https://pkg.go.dev/github.com/testdoc-org/testdoc)
-[![Release](https://img.shields.io/github/release/testdoc-org/testdoc.svg)](https://github.com/testdoc-org/testdoc/releases/latest)
+[![Go Reference](https://pkg.go.dev/badge/github.com/seblex/testdoc.svg)](https://pkg.go.dev/github.com/seblex/testdoc)
+[![Release](https://img.shields.io/github/release/testdoc-org/testdoc.svg)](https://github.com/seblex/testdoc/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Автоматический генератор документации для Go тестов** 🚀
@@ -28,11 +28,11 @@ TestDoc анализирует ваши Go тест-файлы и создает
 
 #### Через Go Install
 ```bash
-go install github.com/testdoc-org/testdoc/cmd/testdoc@latest
+go install github.com/seblex/testdoc/cmd/testdoc@latest
 ```
 
 #### Скачать бинарный файл
-Скачайте последнюю версию с [страницы релизов](https://github.com/testdoc-org/testdoc/releases).
+Скачайте последнюю версию с [страницы релизов](https://github.com/seblex/testdoc/releases).
 
 #### Docker
 ```bash
@@ -67,7 +67,7 @@ package main
 
 import (
     "log"
-    "github.com/testdoc-org/testdoc"
+    "github.com/seblex/testdoc"
 )
 
 func main() {
@@ -311,7 +311,7 @@ mostCommon, count := stats.GetMostCommonTestType(result)
 ### Сборка из исходников
 
 ```bash
-git clone https://github.com/testdoc-org/testdoc.git
+git clone https://github.com/seblex/testdoc.git
 cd testdoc
 go build -o testdoc ./cmd/testdoc
 ```
@@ -352,15 +352,15 @@ golangci-lint run
 
 ### Как помочь
 
-- 🐛 **Сообщайте о багах** через [Issues](https://github.com/testdoc-org/testdoc/issues)
-- 💡 **Предлагайте новые возможности** через [Discussions](https://github.com/testdoc-org/testdoc/discussions)
+- 🐛 **Сообщайте о багах** через [Issues](https://github.com/seblex/testdoc/issues)
+- 💡 **Предлагайте новые возможности** через [Discussions](https://github.com/seblex/testdoc/discussions)
 - 🔧 **Отправляйте Pull Requests**
 - 📖 **Улучшайте документацию**
 - ⭐ **Ставьте звезды** проекту
 
 ### Благодарности
 
-Спасибо всем [участникам](https://github.com/testdoc-org/testdoc/contributors) проекта!
+Спасибо всем [участникам](https://github.com/seblex/testdoc/contributors) проекта!
 
 ## 📜 Лицензия
 
@@ -370,9 +370,9 @@ golangci-lint run
 
 - 📚 [Документация](https://testdoc-org.github.io/testdoc/)
 - 🎯 [Примеры использования](examples/)
-- 🐛 [Сообщить об ошибке](https://github.com/testdoc-org/testdoc/issues/new/choose)
-- 💬 [Обсуждения](https://github.com/testdoc-org/testdoc/discussions)
-- 📦 [Релизы](https://github.com/testdoc-org/testdoc/releases)
+- 🐛 [Сообщить об ошибке](https://github.com/seblex/testdoc/issues/new/choose)
+- 💬 [Обсуждения](https://github.com/seblex/testdoc/discussions)
+- 📦 [Релизы](https://github.com/seblex/testdoc/releases)
 - 🐳 [Docker Hub](https://hub.docker.com/r/testdocorg/testdoc)
 
 ---
@@ -381,6 +381,6 @@ golangci-lint run
 
 **Сделано с ❤️ командой TestDoc**
 
-[⭐ Поставьте звезду на GitHub!](https://github.com/testdoc-org/testdoc) • [🐦 Следите в Twitter](https://twitter.com/testdocorg)
+[⭐ Поставьте звезду на GitHub!](https://github.com/seblex/testdoc) • [🐦 Следите в Twitter](https://twitter.com/testdocorg)
 
 </div>
