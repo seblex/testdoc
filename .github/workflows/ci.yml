@@ -123,7 +123,7 @@ jobs:
     - name: Run integration test
       run: |
         # Генерируем документацию для примеров
-        ./bin/testdoc examples/_examples -output integration-test-docs.md
+        ./bin/testdoc -output integration-test-docs.md examples/_examples
         
         # Проверяем, что файл создан и содержит ожидаемый контент
         [ -f integration-test-docs.md ] || exit 1

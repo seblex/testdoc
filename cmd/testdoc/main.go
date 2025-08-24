@@ -27,6 +27,7 @@ func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "TestDoc v%s - Генератор документации для Go тестов\n\n", version)
 		fmt.Fprintf(os.Stderr, "Использование: %s [опции] [путь]\n\n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "ВАЖНО: Все опции должны указываться ДО пути к директории!\n\n")
 		fmt.Fprintf(os.Stderr, "Опции:\n")
 		flag.PrintDefaults()
 		fmt.Fprintf(os.Stderr, "\nПримеры:\n")
@@ -147,7 +148,7 @@ func main() {
 			fmt.Printf("     * %s: %d (%.1f%%)\n", testType, count, percentage)
 		}
 	}
-	
+
 	// Успешное завершение
 	os.Exit(0)
 }
