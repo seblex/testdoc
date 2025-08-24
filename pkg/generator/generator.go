@@ -7,6 +7,9 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
+
 	"github.com/seblex/testdoc/pkg/types"
 )
 
@@ -208,6 +211,18 @@ func (g *Generator) generateSimpleContent(sb *strings.Builder, packages map[stri
 	}
 }
 
+// getLanguage возвращает язык для заголовков на основе конфигурации
+func (g *Generator) getLanguage() language.Tag {
+	switch g.config.Language {
+	case "en", "english":
+		return language.English
+	case "ru", "russian":
+		return language.Russian
+	default:
+		return language.Russian // По умолчанию русский
+	}
+}
+
 // generateTestSection генерирует секцию для отдельного теста
 func (g *Generator) generateTestSection(sb *strings.Builder, test types.TestInfo) {
 	sb.WriteString(fmt.Sprintf("### %s\n\n", test.Name))
@@ -292,8 +307,9 @@ func (g *Generator) generateTestSection(sb *strings.Builder, test types.TestInfo
 	// Дополнительные метаданные
 	if len(test.Metadata) > 0 {
 		sb.WriteString("#### Дополнительная информация\n\n")
+		caser := cases.Title(g.getLanguage())
 		for key, value := range test.Metadata {
-			sb.WriteString(fmt.Sprintf("- **%s:** %s\n", strings.Title(key), value))
+			sb.WriteString(fmt.Sprintf("- **%s:** %s\n", caser.String(key), value))
 		}
 		sb.WriteString("\n")
 	}

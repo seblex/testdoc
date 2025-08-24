@@ -30,7 +30,6 @@
 package testdoc
 
 import (
-	"io/ioutil"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -47,7 +46,7 @@ func DefaultConfig() *types.Config {
 
 // LoadConfig загружает конфигурацию из YAML файла
 func LoadConfig(filename string) (*types.Config, error) {
-	data, err := ioutil.ReadFile(filename)
+	data, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +67,7 @@ func SaveConfig(config *types.Config, filename string) error {
 		return err
 	}
 
-	return ioutil.WriteFile(filename, data, 0644)
+	return os.WriteFile(filename, data, 0644)
 }
 
 // ParseDirectory анализирует директорию и возвращает информацию о тестах
@@ -109,7 +108,7 @@ func GenerateFromDirectory(path string, config *types.Config) (string, error) {
 
 // WriteToFile записывает документацию в файл
 func WriteToFile(content, filename string) error {
-	return ioutil.WriteFile(filename, []byte(content), 0644)
+	return os.WriteFile(filename, []byte(content), 0644)
 }
 
 // AppendToFile добавляет документацию к существующему файлу
@@ -134,6 +133,9 @@ func ValidateConfig(config *types.Config) error {
 	}
 	if config.Version == "" {
 		config.Version = "1.0.0"
+	}
+	if config.Language == "" {
+		config.Language = "ru"
 	}
 
 	// Инициализируем пустые слайсы если они nil

@@ -402,3 +402,101 @@ func TestGenerator_generateSimpleContent(t *testing.T) {
 	testBPos := strings.Index(output, "### TestB")
 	assert.True(t, testAPos < testBPos, "TestA should come before TestB")
 }
+
+func TestGenerator_getLanguage(t *testing.T) {
+	tests := []struct {
+		name     string
+		language string
+		expected string
+	}{
+		{
+			name:     "russian_short",
+			language: "ru",
+			expected: "ru",
+		},
+		{
+			name:     "russian_full",
+			language: "russian",
+			expected: "ru",
+		},
+		{
+			name:     "english_short",
+			language: "en",
+			expected: "en",
+		},
+		{
+			name:     "english_full",
+			language: "english",
+			expected: "en",
+		},
+		{
+			name:     "unknown_language",
+			language: "unknown",
+			expected: "ru", // По умолчанию русский
+		},
+		{
+			name:     "empty_language",
+			language: "",
+			expected: "ru", // По умолчанию русский
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			config := &types.Config{Language: tt.language}
+			gen := New(config)
+			lang := gen.getLanguage()
+			assert.Equal(t, tt.expected, lang.String())
+		})
+	}
+}
+
+func TestGenerator_LanguageInMetadata(t *testing.T) {
+	// Тест для русского языка (по умолчанию)
+	testInfo := types.TestInfo{
+		Name:    "TestExample",
+		Type:    types.UnitTest,
+		Package: "example",
+		File:    "example_test.go",
+		Line:    10,
+		Metadata: map[string]string{
+			"priority":   "высокий",
+			"complexity": "низкий",
+		},
+	}
+
+	configRu := &types.Config{Language: "ru"}
+	genRu := New(configRu)
+
+	var sbRu strings.Builder
+	genRu.generateTestSection(&sbRu, testInfo)
+	outputRu := sbRu.String()
+
+	// Для русского языка заголовки должны быть с заглавной буквы по правилам русского языка
+	assert.Contains(t, outputRu, "- **Priority:** высокий")
+	assert.Contains(t, outputRu, "- **Complexity:** низкий")
+
+	// Тест для английского языка
+	testInfoEn := types.TestInfo{
+		Name:    "TestExample",
+		Type:    types.UnitTest,
+		Package: "example",
+		File:    "example_test.go",
+		Line:    10,
+		Metadata: map[string]string{
+			"priority":   "high",
+			"complexity": "low",
+		},
+	}
+
+	configEn := &types.Config{Language: "en"}
+	genEn := New(configEn)
+
+	var sbEn strings.Builder
+	genEn.generateTestSection(&sbEn, testInfoEn)
+	outputEn := sbEn.String()
+
+	// Для английского языка заголовки должны быть с заглавной буквы по правилам английского языка
+	assert.Contains(t, outputEn, "- **Priority:** high")
+	assert.Contains(t, outputEn, "- **Complexity:** low")
+}

@@ -1,7 +1,6 @@
 package testdoc
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -19,6 +18,7 @@ func TestDefaultConfig(t *testing.T) {
 	assert.Equal(t, "Test Documentation", config.Title)
 	assert.Equal(t, "Generated automatically", config.Author)
 	assert.Equal(t, "1.0.0", config.Version)
+	assert.Equal(t, "ru", config.Language)
 	assert.True(t, config.IncludeSkipped)
 	assert.True(t, config.GroupByType)
 	assert.False(t, config.GroupByPackage)
@@ -29,6 +29,7 @@ func TestLoadConfig(t *testing.T) {
 	configContent := `title: "Custom Test Documentation"
 author: "Custom Author"
 version: "2.0.0"
+language: "en"
 include_skipped: false
 group_by_type: false
 group_by_package: true
@@ -40,12 +41,12 @@ custom_templates:
   header: "Custom header template"
 `
 
-	tmpDir, err := ioutil.TempDir("", "testdoc_config_test")
+	tmpDir, err := os.MkdirTemp("", "testdoc_config_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
 	configFile := filepath.Join(tmpDir, "config.yaml")
-	err = ioutil.WriteFile(configFile, []byte(configContent), 0644)
+	err = os.WriteFile(configFile, []byte(configContent), 0644)
 	require.NoError(t, err)
 
 	// Загружаем конфигурацию
@@ -55,6 +56,7 @@ custom_templates:
 	assert.Equal(t, "Custom Test Documentation", config.Title)
 	assert.Equal(t, "Custom Author", config.Author)
 	assert.Equal(t, "2.0.0", config.Version)
+	assert.Equal(t, "en", config.Language)
 	assert.False(t, config.IncludeSkipped)
 	assert.False(t, config.GroupByType)
 	assert.True(t, config.GroupByPackage)
@@ -73,6 +75,7 @@ func TestSaveConfig(t *testing.T) {
 		Title:           "Test Config",
 		Author:          "Test Author",
 		Version:         "1.0.0",
+		Language:        "en",
 		IncludeSkipped:  true,
 		GroupByType:     true,
 		GroupByPackage:  false,
@@ -83,7 +86,7 @@ func TestSaveConfig(t *testing.T) {
 		},
 	}
 
-	tmpDir, err := ioutil.TempDir("", "testdoc_save_config_test")
+	tmpDir, err := os.MkdirTemp("", "testdoc_save_config_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
@@ -102,6 +105,7 @@ func TestSaveConfig(t *testing.T) {
 	assert.Equal(t, config.Title, loadedConfig.Title)
 	assert.Equal(t, config.Author, loadedConfig.Author)
 	assert.Equal(t, config.Version, loadedConfig.Version)
+	assert.Equal(t, config.Language, loadedConfig.Language)
 	assert.Equal(t, config.IncludeSkipped, loadedConfig.IncludeSkipped)
 }
 
@@ -119,12 +123,12 @@ func TestExample(t *testing.T) {
 }
 `
 
-	tmpDir, err := ioutil.TempDir("", "testdoc_parse_file_test")
+	tmpDir, err := os.MkdirTemp("", "testdoc_parse_file_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
 	testFile := filepath.Join(tmpDir, "example_test.go")
-	err = ioutil.WriteFile(testFile, []byte(testCode), 0644)
+	err = os.WriteFile(testFile, []byte(testCode), 0644)
 	require.NoError(t, err)
 
 	// Парсим файл
@@ -139,7 +143,7 @@ func TestExample(t *testing.T) {
 
 func TestParseDirectory(t *testing.T) {
 	// Создаем временную директорию с тест-файлами
-	tmpDir, err := ioutil.TempDir("", "testdoc_parse_dir_test")
+	tmpDir, err := os.MkdirTemp("", "testdoc_parse_dir_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
@@ -162,7 +166,7 @@ func TestIntegration(t *testing.T) {
 `
 
 	testFile := filepath.Join(tmpDir, "example_test.go")
-	err = ioutil.WriteFile(testFile, []byte(testCode), 0644)
+	err = os.WriteFile(testFile, []byte(testCode), 0644)
 	require.NoError(t, err)
 
 	// Парсим директорию
@@ -185,7 +189,7 @@ func TestIntegration(t *testing.T) {
 
 func TestGenerateFromDirectory(t *testing.T) {
 	// Создаем временную директорию с тест-файлами
-	tmpDir, err := ioutil.TempDir("", "testdoc_generate_test")
+	tmpDir, err := os.MkdirTemp("", "testdoc_generate_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
@@ -203,7 +207,7 @@ func TestExample(t *testing.T) {
 `
 
 	testFile := filepath.Join(tmpDir, "example_test.go")
-	err = ioutil.WriteFile(testFile, []byte(testCode), 0644)
+	err = os.WriteFile(testFile, []byte(testCode), 0644)
 	require.NoError(t, err)
 
 	// Генерируем документацию
@@ -222,7 +226,7 @@ func TestExample(t *testing.T) {
 func TestWriteToFile(t *testing.T) {
 	content := "# Test Documentation\n\nThis is a test document."
 
-	tmpDir, err := ioutil.TempDir("", "testdoc_write_test")
+	tmpDir, err := os.MkdirTemp("", "testdoc_write_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
@@ -231,7 +235,7 @@ func TestWriteToFile(t *testing.T) {
 	require.NoError(t, err)
 
 	// Проверяем, что файл создан и содержит правильные данные
-	writtenContent, err := ioutil.ReadFile(outputFile)
+	writtenContent, err := os.ReadFile(outputFile)
 	require.NoError(t, err)
 	assert.Equal(t, content, string(writtenContent))
 }
@@ -240,7 +244,7 @@ func TestAppendToFile(t *testing.T) {
 	initialContent := "# Test Documentation\n\n"
 	additionalContent := "## Additional Section\n\nMore content."
 
-	tmpDir, err := ioutil.TempDir("", "testdoc_append_test")
+	tmpDir, err := os.MkdirTemp("", "testdoc_append_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
@@ -255,7 +259,7 @@ func TestAppendToFile(t *testing.T) {
 	require.NoError(t, err)
 
 	// Проверяем результат
-	finalContent, err := ioutil.ReadFile(outputFile)
+	finalContent, err := os.ReadFile(outputFile)
 	require.NoError(t, err)
 	assert.Equal(t, initialContent+additionalContent, string(finalContent))
 }
@@ -273,6 +277,7 @@ func TestValidateConfig(t *testing.T) {
 				assert.Equal(t, "Test Documentation", c.Title)
 				assert.Equal(t, "Generated automatically", c.Author)
 				assert.Equal(t, "1.0.0", c.Version)
+				assert.Equal(t, "ru", c.Language)
 				assert.NotNil(t, c.ExcludePatterns)
 				assert.NotNil(t, c.IncludePatterns)
 				assert.NotNil(t, c.CustomTemplates)
@@ -287,6 +292,7 @@ func TestValidateConfig(t *testing.T) {
 				assert.Equal(t, "Custom Title", c.Title)
 				assert.Equal(t, "Generated automatically", c.Author)
 				assert.Equal(t, "1.0.0", c.Version)
+				assert.Equal(t, "ru", c.Language)
 			},
 		},
 		{
@@ -510,4 +516,40 @@ func TestFilter_ByAuthor(t *testing.T) {
 	assert.Equal(t, "TestByJohn", filtered.Packages["pkg1"].Tests[0].Name)
 	assert.Equal(t, "TestByJohn2", filtered.Packages["pkg1"].Tests[1].Name)
 	assert.Equal(t, 2, filtered.Stats.TotalTests)
+}
+
+func TestValidateConfig_Language(t *testing.T) {
+	tests := []struct {
+		name     string
+		config   *types.Config
+		expected string
+	}{
+		{
+			name:     "empty_language",
+			config:   &types.Config{},
+			expected: "ru",
+		},
+		{
+			name: "explicit_english",
+			config: &types.Config{
+				Language: "en",
+			},
+			expected: "en",
+		},
+		{
+			name: "explicit_russian",
+			config: &types.Config{
+				Language: "ru",
+			},
+			expected: "ru",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := ValidateConfig(tt.config)
+			assert.NoError(t, err)
+			assert.Equal(t, tt.expected, tt.config.Language)
+		})
+	}
 }

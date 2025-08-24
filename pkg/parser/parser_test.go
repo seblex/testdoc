@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -160,12 +159,12 @@ func BenchmarkPerformance(b *testing.B) {
 `
 
 	// Создаем временный файл
-	tmpDir, err := ioutil.TempDir("", "parser_test")
+	tmpDir, err := os.MkdirTemp("", "parser_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
 	testFile := filepath.Join(tmpDir, "example_test.go")
-	err = ioutil.WriteFile(testFile, []byte(testCode), 0644)
+	err = os.WriteFile(testFile, []byte(testCode), 0644)
 	require.NoError(t, err)
 
 	// Парсим файл
@@ -296,7 +295,7 @@ func TestParser_parseAnnotation(t *testing.T) {
 
 func TestParser_ParseDirectory(t *testing.T) {
 	// Создаем временную директорию с тест-файлами
-	tmpDir, err := ioutil.TempDir("", "parser_dir_test")
+	tmpDir, err := os.MkdirTemp("", "parser_dir_test")
 	require.NoError(t, err)
 	defer os.RemoveAll(tmpDir)
 
@@ -313,7 +312,7 @@ func TestUnit(t *testing.T) {
 `
 
 	testFile := filepath.Join(tmpDir, "example_test.go")
-	err = ioutil.WriteFile(testFile, []byte(testCode), 0644)
+	err = os.WriteFile(testFile, []byte(testCode), 0644)
 	require.NoError(t, err)
 
 	// Создаем обычный файл (не тест)
@@ -325,7 +324,7 @@ func RegularFunction() {
 `
 
 	regularFile := filepath.Join(tmpDir, "example.go")
-	err = ioutil.WriteFile(regularFile, []byte(regularCode), 0644)
+	err = os.WriteFile(regularFile, []byte(regularCode), 0644)
 	require.NoError(t, err)
 
 	// Парсим директорию

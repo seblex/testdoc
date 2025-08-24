@@ -1,6 +1,7 @@
 title: "Документация тестов проекта"
 author: "Команда разработки"
 version: "1.0.0"
+language: "ru"  # Язык документации: ru (русский) или en (английский)
 include_skipped: true
 group_by_type: true
 group_by_package: false

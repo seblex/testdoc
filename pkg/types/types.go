@@ -88,6 +88,7 @@ type Config struct {
 	Title           string            `yaml:"title"`
 	Author          string            `yaml:"author"`
 	Version         string            `yaml:"version"`
+	Language        string            `yaml:"language"`
 	IncludeSkipped  bool              `yaml:"include_skipped"`
 	GroupByType     bool              `yaml:"group_by_type"`
 	GroupByPackage  bool              `yaml:"group_by_package"`
@@ -102,6 +103,7 @@ func DefaultConfig() *Config {
 		Title:           "Test Documentation",
 		Author:          "Generated automatically",
 		Version:         "1.0.0",
+		Language:        "ru",
 		IncludeSkipped:  true,
 		GroupByType:     true,
 		GroupByPackage:  false,
