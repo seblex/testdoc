@@ -147,4 +147,7 @@ func main() {
 			fmt.Printf("     * %s: %d (%.1f%%)\n", testType, count, percentage)
 		}
 	}
+	
+	// Успешное завершение
+	os.Exit(0)
 }
