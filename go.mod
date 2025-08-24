@@ -1,6 +1,8 @@
 module github.com/seblex/testdoc
 
-go 1.21
+go 1.23.0
+
+toolchain go1.23.4
 
 require (
 	github.com/stretchr/testify v1.8.4

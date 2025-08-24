@@ -32,7 +32,7 @@ package testdoc
 import (
 	"os"
 
-	"gopkg.in/yaml.v3"
+	yaml "gopkg.in/yaml.v3"
 
 	"github.com/seblex/testdoc/pkg/generator"
 	"github.com/seblex/testdoc/pkg/parser"

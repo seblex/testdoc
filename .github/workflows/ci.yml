@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go-version: [1.20.x, 1.21.x, 1.22.x]
+        go-version: [1.21.x, 1.22.x, 1.23.x]
 
     steps:
     - name: Set up Go ${{ matrix.go-version }}
@@ -60,7 +60,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: 1.21.x
+        go-version: 1.23.x
 
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v3
@@ -79,7 +79,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: 1.21.x
+        go-version: 1.23.x
 
     - name: Build CLI
       run: go build -o bin/testdoc ./cmd/testdoc
@@ -106,7 +106,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: 1.21.x
+        go-version: 1.23.x
 
     - name: Download CLI artifact
       uses: actions/download-artifact@v3
@@ -145,7 +145,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: 1.21.x
+        go-version: 1.23.x
 
     - name: Run Gosec Security Scanner
       uses: securecodewarrior/github-action-gosec@master
