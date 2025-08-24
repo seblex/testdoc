@@ -81,6 +81,9 @@ jobs:
       with:
         go-version: 1.23.x
 
+    - name: Create bin directory
+      run: mkdir -p bin
+
     - name: Build CLI
       run: go build -o bin/testdoc ./cmd/testdoc
 

@@ -4,7 +4,7 @@
 *.dll
 *.so
 *.dylib
-testdoc
+/testdoc
 test-doc-generator
 
 # Test binary, built with `go test -c`
